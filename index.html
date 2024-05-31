@@ -94,6 +94,19 @@
         document.getElementById("loaderYES").style.display = "none";
         document.getElementById("webContent").style.display = "block";
       }
+
+    document.onreadystatechange = function () {
+      var state = document.readyState
+      if (state == 'interactive') {
+           document.getElementById('webContent').style.visibility="hidden";
+      } else if (state == 'complete') {
+          setTimeout(function(){
+             document.getElementById('interactive');
+             document.getElementById('loaderYes').style.visibility="hidden";
+             document.getElementById('contents').style.visibility="visible";
+          },1000);
+      }
+    }
   </script>
 
 
