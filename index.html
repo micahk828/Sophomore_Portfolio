@@ -17,8 +17,106 @@
    
   </style>
 </head>
-  <body onload="myFunction()" translate="no">
-    <div id="loaderYes">
+  <body onload="myFunction()" translate="no"><br/>
+    <script id="rendered-js">
+      /*!
+       * Particleground
+       *
+       * @author Jonathan Nicol - @mrjnicol
+       * @version 1.1.0
+       * @description Creates a canvas based particle system background
+       *
+       * Inspired by http://requestlab.fr/ and http://disruptivebydesign.com/
+       */
+      !function (a, b) {"use strict";function c(a) {a = a || {};for (var b = 1; b < arguments.length; b++) {var c = arguments[b];if (c) for (var d in c) c.hasOwnProperty(d) && ("object" == typeof c[d] ? deepExtend(a[d], c[d]) : a[d] = c[d]);}return a;}function d(d, g) {function h() {if (y) {r = b.createElement("canvas"), r.className = "pg-canvas", r.style.display = "block", d.insertBefore(r, d.firstChild), s = r.getContext("2d"), i();for (var c = Math.round(r.width * r.height / g.density), e = 0; c > e; e++) {var f = new n();f.setStackPos(e), z.push(f);}a.addEventListener("resize", function () {k();}, !1), b.addEventListener("mousemove", function (a) {A = a.pageX, B = a.pageY;}, !1), D && !C && a.addEventListener("deviceorientation", function () {F = Math.min(Math.max(-event.beta, -30), 30), E = Math.min(Math.max(-event.gamma, -30), 30);}, !0), j(), q("onInit");}}function i() {r.width = d.offsetWidth, r.height = d.offsetHeight, s.fillStyle = g.dotColor, s.strokeStyle = g.lineColor, s.lineWidth = g.lineWidth;}function j() {if (y) {u = a.innerWidth, v = a.innerHeight, s.clearRect(0, 0, r.width, r.height);for (var b = 0; b < z.length; b++) z[b].updatePosition();for (var b = 0; b < z.length; b++) z[b].draw();G || (t = requestAnimationFrame(j));}}function k() {i();for (var a = d.offsetWidth, b = d.offsetHeight, c = z.length - 1; c >= 0; c--) (z[c].position.x > a || z[c].position.y > b) && z.splice(c, 1);var e = Math.round(r.width * r.height / g.density);if (e > z.length) for (; e > z.length;) {var f = new n();z.push(f);} else e < z.length && z.splice(e);for (c = z.length - 1; c >= 0; c--) z[c].setStackPos(c);}function l() {G = !0;}function m() {G = !1, j();}function n() {switch (this.stackPos, this.active = !0, this.layer = Math.ceil(3 * Math.random()), this.parallaxOffsetX = 0, this.parallaxOffsetY = 0, this.position = { x: Math.ceil(Math.random() * r.width), y: Math.ceil(Math.random() * r.height) }, this.speed = {}, g.directionX) {case "left":this.speed.x = +(-g.maxSpeedX + Math.random() * g.maxSpeedX - g.minSpeedX).toFixed(2);break;case "right":this.speed.x = +(Math.random() * g.maxSpeedX + g.minSpeedX).toFixed(2);break;default:this.speed.x = +(-g.maxSpeedX / 2 + Math.random() * g.maxSpeedX).toFixed(2), this.speed.x += this.speed.x > 0 ? g.minSpeedX : -g.minSpeedX;}switch (g.directionY) {case "up":this.speed.y = +(-g.maxSpeedY + Math.random() * g.maxSpeedY - g.minSpeedY).toFixed(2);break;case "down":this.speed.y = +(Math.random() * g.maxSpeedY + g.minSpeedY).toFixed(2);break;default:this.speed.y = +(-g.maxSpeedY / 2 + Math.random() * g.maxSpeedY).toFixed(2), this.speed.x += this.speed.y > 0 ? g.minSpeedY : -g.minSpeedY;}}function o(a, b) {return b ? void (g[a] = b) : g[a];}function p() {console.log("destroy"), r.parentNode.removeChild(r), q("onDestroy"), f && f(d).removeData("plugin_" + e);}function q(a) {void 0 !== g[a] && g[a].call(d);}var r,s,t,u,v,w,x,y = !!b.createElement("canvas").getContext,z = [],A = 0,B = 0,C = !navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry|BB10|mobi|tablet|opera mini|nexus 7)/i),D = !!a.DeviceOrientationEvent,E = 0,F = 0,G = !1;return g = c({}, a[e].defaults, g), n.prototype.draw = function () {s.beginPath(), s.arc(this.position.x + this.parallaxOffsetX, this.position.y + this.parallaxOffsetY, g.particleRadius / 2, 0, 2 * Math.PI, !0), s.closePath(), s.fill(), s.beginPath();for (var a = z.length - 1; a > this.stackPos; a--) {var b = z[a],c = this.position.x - b.position.x,d = this.position.y - b.position.y,e = Math.sqrt(c * c + d * d).toFixed(2);e < g.proximity && (s.moveTo(this.position.x + this.parallaxOffsetX, this.position.y + this.parallaxOffsetY), g.curvedLines ? s.quadraticCurveTo(Math.max(b.position.x, b.position.x), Math.min(b.position.y, b.position.y), b.position.x + b.parallaxOffsetX, b.position.y + b.parallaxOffsetY) : s.lineTo(b.position.x + b.parallaxOffsetX, b.position.y + b.parallaxOffsetY));}s.stroke(), s.closePath();}, n.prototype.updatePosition = function () {if (g.parallax) {if (D && !C) {var a = (u - 0) / 60;w = (E - -30) * a + 0;var b = (v - 0) / 60;x = (F - -30) * b + 0;} else w = A, x = B;this.parallaxTargX = (w - u / 2) / (g.parallaxMultiplier * this.layer), this.parallaxOffsetX += (this.parallaxTargX - this.parallaxOffsetX) / 10, this.parallaxTargY = (x - v / 2) / (g.parallaxMultiplier * this.layer), this.parallaxOffsetY += (this.parallaxTargY - this.parallaxOffsetY) / 10;}var c = d.offsetWidth,e = d.offsetHeight;switch (g.directionX) {case "left":this.position.x + this.speed.x + this.parallaxOffsetX < 0 && (this.position.x = c - this.parallaxOffsetX);break;case "right":this.position.x + this.speed.x + this.parallaxOffsetX > c && (this.position.x = 0 - this.parallaxOffsetX);break;default:(this.position.x + this.speed.x + this.parallaxOffsetX > c || this.position.x + this.speed.x + this.parallaxOffsetX < 0) && (this.speed.x = -this.speed.x);}switch (g.directionY) {case "up":this.position.y + this.speed.y + this.parallaxOffsetY < 0 && (this.position.y = e - this.parallaxOffsetY);break;case "down":this.position.y + this.speed.y + this.parallaxOffsetY > e && (this.position.y = 0 - this.parallaxOffsetY);break;default:(this.position.y + this.speed.y + this.parallaxOffsetY > e || this.position.y + this.speed.y + this.parallaxOffsetY < 0) && (this.speed.y = -this.speed.y);}this.position.x += this.speed.x, this.position.y += this.speed.y;}, n.prototype.setStackPos = function (a) {this.stackPos = a;}, h(), { option: o, destroy: p, start: m, pause: l };}var e = "particleground",f = a.jQuery;a[e] = function (a, b) {return new d(a, b);}, a[e].defaults = { minSpeedX: .1, maxSpeedX: .7, minSpeedY: .1, maxSpeedY: .7, directionX: "center", directionY: "center", density: 1e4, dotColor: "#666666", lineColor: "#666666", particleRadius: 7, lineWidth: 1, curvedLines: !1, proximity: 100, parallax: !0, parallaxMultiplier: 5, onInit: function () {}, onDestroy: function () {} }, f && (f.fn[e] = function (a) {if ("string" == typeof arguments[0]) {var b,c = arguments[0],g = Array.prototype.slice.call(arguments, 1);return this.each(function () {f.data(this, "plugin_" + e) && "function" == typeof f.data(this, "plugin_" + e)[c] && (b = f.data(this, "plugin_" + e)[c].apply(this, g));}), void 0 !== b ? b : this;}return "object" != typeof a && a ? void 0 : this.each(function () {f.data(this, "plugin_" + e) || f.data(this, "plugin_" + e, new d(this, a));});});}(window, document), /**
+      * requestAnimationFrame polyfill by Erik Möller. fixes from Paul Irish and Tino Zijdel
+      * @see: http://paulirish.com/2011/requestanimationframe-for-smart-animating/
+      * @see: http://my.opera.com/emoller/blog/2011/12/20/requestanimationframe-for-smart-er-animating
+      * @license: MIT license
+      */
+      function () {for (var a = 0, b = ["ms", "moz", "webkit", "o"], c = 0; c < b.length && !window.requestAnimationFrame; ++c) window.requestAnimationFrame = window[b[c] + "RequestAnimationFrame"], window.cancelAnimationFrame = window[b[c] + "CancelAnimationFrame"] || window[b[c] + "CancelRequestAnimationFrame"];window.requestAnimationFrame || (window.requestAnimationFrame = function (b) {var c = new Date().getTime(),d = Math.max(0, 16 - (c - a)),e = window.setTimeout(function () {b(c + d);}, d);return a = c + d, e;}), window.cancelAnimationFrame || (window.cancelAnimationFrame = function (a) {clearTimeout(a);});}();
+
+
+      particleground(document.getElementById('particles-foreground'), {
+        dotColor: 'rgba(255, 255, 255, 1)',
+        lineColor: 'rgba(255, 255, 255, 0.05)',
+        minSpeedX: 0.3,
+        maxSpeedX: 0.6,
+        minSpeedY: 0.3,
+        maxSpeedY: 0.6,
+        density: 50000, // One particle every n pixels
+        curvedLines: false,
+        proximity: 250, // How close two dots need to be before they join
+        parallaxMultiplier: 10, // Lower the number is more extreme parallax
+        particleRadius: 4 // Dot size
+      });
+
+      particleground(document.getElementById('particles-background'), {
+        dotColor: 'rgba(255, 255, 255, 0.5)',
+        lineColor: 'rgba(255, 255, 255, 0.05)',
+        minSpeedX: 0.075,
+        maxSpeedX: 0.15,
+        minSpeedY: 0.075,
+        maxSpeedY: 0.15,
+        density: 30000, // One particle every n pixels
+        curvedLines: false,
+        proximity: 20, // How close two dots need to be before they join
+        parallaxMultiplier: 20, // Lower the number is more extreme parallax
+        particleRadius: 2 // Dot size
+      });
+      //# sourceURL=pen.js
+          var myVar;
+
+          /*function myFunction() {
+            myVar = setTimeout(showPage, 3000);
+          }
+
+          function showPage() {
+            document.getElementById("loaderYES").style.display = "none";
+            document.getElementById("webContent").style.display = "block";
+            //document.body.style.backgroundColor = "white";
+          }*/
+
+        document.onreadystatechange = function () {
+          var state = document.readyState
+          if (state == 'interactive') {
+               document.getElementById('webContent').style.display="none";
+              document.getElementById('container').style.display="none";
+          } else if (state == 'complete') {
+              setTimeout(function(){
+                 document.getElementById('interactive');
+                 document.getElementById('loaderYes').style.visibility="hidden";
+                 document.getElementById('webContent').style.display="initial";
+                 document.getElementById('container').style.display="flex";
+                // document.body.style.backgroundColor = "white";
+              },1000);
+          }
+        }
+
+        $(".theme-switch").on("click", () => {
+          $(".body").toggleClass("light-theme");
+        });
+
+        function visible(){
+            document.getElementById("domain1").style.display = "block";
+        }
+        function visible2(){
+            document.getElementById("domain2").style.display = "block";
+        }
+        function visible3(){
+            document.getElementById("domain3").style.display = "block";
+        }
+        function visible4(){
+            document.getElementById("domain4").style.display = "block";
+        }
+        function visible5(){
+            document.getElementById("domain5").style.display = "block";
+        }
+        function visible6(){
+            document.getElementById("domain6").style.display = "block";
+        }
+      </script>
+    <div id="loaderYes" >
     <div id="particles-background" class="vertical-centered-box"><canvas class="pg-canvas" width="1388" style="display: block;" height="964"></canvas></div>
   <div id="particles-foreground" class="vertical-centered-box"><canvas class="pg-canvas" width="1388" style="display: block;" height="964"></canvas></div>
   <div class="vertical-centered-box">
@@ -31,12 +129,118 @@
     </div>
   </div>
 </div>
-    <div id="webContent">
-      <nav>
-         Home | Labs | Projects | Games | Work
-      </nav>
-    </div>
-    
+    <div id="webContent" >
+        <div width="100%" height="100%">
+          <div class="container">
+          <div class="theme-switch">
+            <div class="switch"></div>
+          </div>
+          <div class="navigation">
+            <ul>
+              <a href="index.html" class="active">Home</a>
+              <a href="labs.html" >Labs</a>
+              <a href="projects.html" >Projects</a>
+              <a href="games.html" >Games</a>
+              <a href="other.html" >Loader</a>
+            </ul>
+          </div>
+        </div>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+              <script id="rendered-js">
+        $(".theme-switch").on("click", () => {
+          $("body").toggleClass("light-theme");
+        });
+        //# sourceURL=pen.js
+            </script>
+        </div>
+        <hr/>
+        <div class="grid-container">
+        <div class="aboutme">
+          <h2>About Me</h2>
+        <img src="me.jpg" width="100%">
+          <h4 style="line-height: 2rem;">My name is Micah Kennedy and I go to Thomas A. Edison CTE High School. I am in the Web Development CTE course and I have taken my IT Specialist Certification Exam in HTML-CSS. Through practice in programs like Code.org, Github, etc, I have become proficient in Web Design.</h4>
+        </div>
+        <div id="maincontent" style="width:100%;">
+          <h2>Course Reflection</H2>
+          <h3 style="line-height: 1.2rem;">This is a reflection on this year's course focused on HTML, CSS, and JavaScript.</h3>
+
+          <p>There are six main units in this course that teach you a substantial amount of information to make you profound at building HTML. Each unit covers a different subtopic of HTML and CSS, of which is listed in the unit summaries. A list of topics covered by these units include the following:</p>
+          <ol>
+            <li>Metadata</li>
+            <li>Head/Body HTML Tags</li>
+            <li>Accesibility + Design</li>
+            <li>Divs + Sectioning Tags</li>
+            <li>CSS Properties</li>
+          </ol>
+<div class="box">            
+<div class="dropdown"><a href="#domain1" onclick="visible()">Unit 1</a></div>
+<div class="dropdown"><a href="#domain2" onclick="visible2()">Unit 2</a></div>
+<div class="dropdown"><a href="#domain3" onclick="visible3()">Unit 3</a></div>
+<div class="dropdown"><a href="#domain4" onclick="visible4()">Unit 4</a></div>
+<div class="dropdown"><a href="#domain5" onclick="visible5()">Unit 5</a></div>
+<div class="dropdown"><a href="#domain6" onclick="visible6()">Unit 6</a></div></div><br>
+<details>
+    <summary>Show or Hide Information</summary>
+    <p>Click on a unit to see the summary</p>
+</details>
+        <div id="img" style="text-align: center;"><img src="logo.png"  width="225em" height="225em"></div>
+              </div>
+           <div id="resources">
+               <h2>Resources</h2>
+               <iframe src="https://media-aws.onlineexpert.com/files/workbooks/HTML_and_CSS_Student_Workbook.pdf" class="iframe-pdf"></iframe>
+               <a href="https://media-aws.onlineexpert.com/files/workbooks/HTML_and_CSS_Student_Workbook.pdf" target="_blank"><p>Click -> LearnKey Workbook</p></a>
+               <iframe src="https://www.gmetrix.net/Courses/Course.aspx?" class="iframe-pdf" scrolling="auto"></iframe>
+               <a href="https://www.gmetrix.net/Courses/Course.aspx?" target="_blank"><p>Click -> GMetrix HTML-CSS Course</p></a>
+               <iframe src="https://www.w3schools.com/html/default.asp" class="iframe-pdf" scrolling="auto"></iframe>
+                  <a href="https://www.w3schools.com/html/default.asp" target="_blank"><p>Click -> Code.org W3Schools Reference</p></a>
+           </div>  
+        </div>
+            <div id="domain1">
+                <h2>Unit 1</h2>
+                <h4>This domain introduces the fundamentals of HTML (Hypertext Markup Language) and CSS (Cascading Style Sheets). It covers the basic structure of an HTML document, including the doctype, html, head, and body elements. Students learn about essential HTML elements for structuring content like headings, paragraphs, lists, and links. The domain also explains how to use metadata elements like title, meta, link, and style to provide information about the webpage.
+                On the CSS side, students are taught how to style HTML content using selectors (element, class, id), properties, and values. They practice creating internal and external stylesheets and applying styles inline. The domain covers CSS syntax, rule sets, and the concept of the cascade (how styles are inherited and prioritized).</h4>
+
+                <a href="#top">Back to Top</a><br><hr>
+              </div>
+              <div id="domain2">
+                <h2>Unit 2</h2>
+                <h4>Building on the basics, this domain dives deeper into structuring HTML documents using semantic elements introduced in HTML5. Students learn to use elements like header, nav, main, article, section, aside, and footer to organize content in a logical and accessible manner. The domain also covers creating style sheets, understanding style sheet precedence (inline, internal, external), and writing valid CSS syntax.
+                Students practice applying styles using classes, ids, and pseudo-classes like :hover. They learn techniques for separating structure (HTML) from presentation (CSS) for better maintainability.</h4>
+
+                <a href="#top">Back to Top</a><br><hr>
+              </div>
+              <div id="domain3">
+                <h2>Unit 3</h2>
+                <h4>This domain focuses on creating navigation systems and links within HTML documents. It covers different types of links (absolute, relative, bookmarks), as well as elements like a, map, and area for navigation. Students also learn about HTML tables, headings, paragraphs, lists, and semantic tags like details/summary and figure/caption.
+                The domain introduces HTML forms and form controls like input, select, textarea, button, output, datalist, fieldset, and legend. Students practice implementing accessible forms with proper labels and field grouping.</h4>
+
+                <a href="#top">Back to Top</a><br><hr>
+              </div>
+              <div id="domain4">
+                <h2>Unit 4</h2>
+                <h4>This domain teaches how to embed multimedia content like images, videos, and audio into HTML documents. Students learn to use elements like img, video, audio, and iframe, as well as supporting elements like source and track for providing multiple media sources and captions.
+                The domain also covers image layouts, creating image links, and potentially using canvas or SVG for graphics. Students apply CSS techniques to control the layout and positioning of multimedia elements on the page.</h4>
+
+                <a href="#top">Back to Top</a><br><hr>
+              </div>
+              <div id="domain5">
+                <h2>Unit 5</h2>
+                <h4>This extensive domain dives deep into using CSS for layout and positioning of page elements. It covers the CSS box model, including properties for setting height, width, margins, padding, and borders. Students learn different positioning techniques like static, relative, absolute, fixed, and float.
+                The domain also explores concepts like overflow handling, display types (block vs inline), visibility, text formatting (fonts, colors, spacing, etc.), background properties, and CSS units and measurements. An important topic is creating responsive layouts using viewport units, media queries, CSS frameworks/grids, and flexible units like percentages.</h4>
+
+                <a href="#top">Back to Top</a><br><hr>
+              </div>
+              <div id="domain6">
+                <h2>Unit 6</h2>
+                <h4>The final domain emphasizes building accessible and user-friendly websites that work across different browsers and devices. It covers accessibility principles like providing text alternatives for non-text content, sufficient color contrast, logical tab order, and resizable text.
+                Students learn techniques for improving code maintainability, such as reusing CSS rules, commenting code, and separating structure from presentation. The domain also stresses the importance of cross-browser testing to identify and fix rendering issues and syntax errors across different user agents.</h4>
+
+                <a href="#top">Back to Top</a><br><hr>
+              </div>
+          
+          
+          
+            
   <script id="rendered-js">
   /*!
    * Particleground
@@ -86,32 +290,39 @@
   //# sourceURL=pen.js
       var myVar;
 
-      function myFunction() {
+      /*function myFunction() {
         myVar = setTimeout(showPage, 3000);
       }
 
       function showPage() {
         document.getElementById("loaderYES").style.display = "none";
         document.getElementById("webContent").style.display = "block";
-      }
+        //document.body.style.backgroundColor = "white";
+      }*/
 
     document.onreadystatechange = function () {
       var state = document.readyState
       if (state == 'interactive') {
-           document.getElementById('webContent').style.visibility="hidden";
+           document.getElementById('webContent').style.display="none";
+          document.getElementById('container').style.display="none";
       } else if (state == 'complete') {
           setTimeout(function(){
              document.getElementById('interactive');
              document.getElementById('loaderYes').style.visibility="hidden";
-             document.getElementById('contents').style.visibility="visible";
+             document.getElementById('webContent').style.display="initial";
+             document.getElementById('container').style.display="flex";
+            // document.body.style.backgroundColor = "white";
           },1000);
       }
     }
+
+    $(".theme-switch").on("click", () => {
+      $(".body").toggleClass("light-theme");
+    });
+
+      
   </script>
 
-
-
-
-
+    </div>
   </body>
 </html>
