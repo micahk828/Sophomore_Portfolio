@@ -4,7 +4,7 @@ body {
   text-rendering: optimizeLegibility;
   font-family: "proxima-nova-soft", sans-serif;
   -webkit-user-select: none;
-  overflow: auto;
+  overflow-y: visible;
 }
 body .vertical-centered-box {
   position: absolute;
